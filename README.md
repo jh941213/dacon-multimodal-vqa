@@ -1,8 +1,44 @@
 # 월간 데이콘 이미지 기반 질의 응답 AI 경진대회
+## 결과
+* **★ PUBLIC 3위 / PRIVATE 2위 ★** 
+* LLaVA 모델 from pretrained train data
 
 ## 1. Introduction
+**[배경]**
+* 멀티모달 AI는 서로 다른 유형의 데이터를 결합하여 사용하는 기술로, 텍스트와 이미지 등 다양한 데이터를 종합적으로 다루는 기술입니다.
+* 서비스적으로 활용 가치가 높은 멀티모달 AI 모델 개발 및 고도화에 도전해 보세요!
+
+**[주제]** 이미지 기반 질의 응답 AI 모델 개발
+
+**[기간]** 2023.07.10. ~ 2023.08.07.
+
+**[링크]** https://dacon.io/competitions/official/236118/overview/description
 
 ## 2. Data
+```
+data
+├─  image
+│   ├─  train : 107,231개
+│   │   ├─  train_000000.png
+│   │   ├─  train_000001.png
+│   │   └─  ...
+│   └─  test : 11,915개
+│       ├─  test_00000.png
+│       ├─  test_00001.png
+│       └─  ...
+├─  train.csv
+|    ├─  ID : 질문 ID
+|    ├─  image_id : 이미지 ID
+|    ├─  question : 이미지 관련 질문
+|    └─  answer : 질문에 대한 답변
+├─  test.csv
+|    ├─  ID : 질문 ID
+|    ├─  image_id : 이미지 ID
+|    └─  question : 이미지 관련 질문
+└─  sample_submission.csv
+     ├─  ID : 질문 ID
+     └─  *answer : 질문에 대한 답변
+```
 
 ## 3. Setup
 * In Colab-PRO or PRO+ Users only
@@ -34,7 +70,7 @@
 ```
 
 ### Preprocessing
-* You could get 'output.json' file
+* You could get 'output.json' and 'test.json' file
 * If else, download our file and run it in your '/content' directory
 ```python
 %cd /content
@@ -88,7 +124,7 @@
 
 ## 5. Re-training
 * You should put 'vicuna' to your model-name
-* output_dir name should be contained **'checkpoint-*'**
+* output_dir folder should be contained **'checkpoint-*'**
 * num_train_epochs must have started from **2** or more
 
 ```python
@@ -122,7 +158,7 @@
     --lazy_preprocess True \
     --report_to wandb
 ```
-
+  
 ## 6. Inference
 
 ```python
@@ -149,7 +185,7 @@ drive.mount('/content/drive')
     /content/result.jsonl \
 ```
 
-## Submission
+## 7. Submission
 ```python
 %cd /content/dacon-multimodal-vqa
 !python submission.py
